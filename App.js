@@ -9,6 +9,8 @@ import AssignmentRoutes from "./Kanbas/Assignments/routes.js";
 import UserRoutes from "./Kanbas/Users/routes.js";
 import "dotenv/config";
 import EnrollmentsRoutes from "./Kanbas/Enrollments/routes.js";
+import QuizRoutes from "./Kanbas/Quiz/routes.js";
+import QuizAttemptRoutes from "./Kanbas/QuizAttempt/routes.js";
 
 const app = express();
 
@@ -35,12 +37,14 @@ if (process.env.NODE_ENV !== "development") {
 app.use(session(sessionOptions));
 
 app.use(express.json());
+Lab5(app);
 AssignmentRoutes(app);
 ModuleRoutes(app);
 CourseRoutes(app);
 UserRoutes(app);
-Lab5(app);
 EnrollmentsRoutes(app);
+QuizRoutes(app);
+QuizAttemptRoutes(app);
 
 const PORT = process.env.PORT || 4000;
 app.listen(PORT, () => {
