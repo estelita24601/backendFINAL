@@ -15,6 +15,7 @@ export function createQuiz(quiz) {
   return model.create(quiz);
 }
 
+
 export function updateQuiz(quizId, quizUpdates) {
   return model.updateOne({ _id: quizId }, quizUpdates);
 }
