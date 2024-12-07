@@ -1,69 +1,96 @@
-import db from "../Database/index.js";
-import * as assignmentDao from "./dao.js";
-// import * as assignmentDao from "./dao.js";
+import * as assignmentsDao from "./dao.js";
+import mongoose from "mongoose";
 
 export default function AssignmentRoutes(app) {
-  app.delete("/api/assignments/:aid", (req, res) => {
+  app.delete("/api/assignments/:aid", async (req, res) => {
     const { aid } = req.params;
-    assignmentDao.deleteAssignment(aid);
+    await assignmentsDao.deleteAssignment(aid);
     res.sendStatus(200);
   });
 
-  app.get("/api/courses/:cid/assignments", (req, res) => {
+  app.post("/api/courses/:cid/assignments", async (req, res) => {
     const { cid } = req.params;
-    const assignments = assignmentDao.getAssignmentsByCourse(cid);
+    const newAssignment = await assignmentsDao.createAssignment(cid, req.body);
+    res.json(newAssignment);
+  });
+
+  app.put("/api/assignments/:aid", async (req, res) => {
+    const { aid } = req.params;
+    console.log("Update assignment:", aid, req.body);
+    const assignmentUpdated = req.body;
+    const sendStatus = await assignmentsDao.updateAssignment(
+      aid,
+      assignmentUpdated
+    );
+    res.send(sendStatus);
+    // res.sendStatus(204);
+  });
+
+  app.get("/api/courses/:cid/assignments", async (req, res) => {
+    const { cid } = req.params;
+    const assignments = await assignmentsDao.getAssignmentsByCourse(cid);
     res.json(assignments);
   });
 
-  app.post("/api/courses/:cid/assignments", (req, res) => {
-    const { cid } = req.params;
-    const newAssignment = assignmentDao.createAssignment(cid, req.body);
-    res.send(newAssignment);
-  });
+  // app.post(
+  //   "/api/courses/:cid/assignments/AssignmentEditorNew",
+  //   async (req, res) => {
+  //     const { cid } = req.params;
+  //     console.log("new assignment:", cid, req.body);
+  //     const newAssignment = await assignmentsDao.createAssignment(
+  //       cid,
+  //       req.body
+  //     );
+  //     res.json(newAssignment);
+  //   }
+  // );
 
-  app.put("/api/assignments/:aid", (req, res) => {
-    const { aid } = req.params;
-    assignmentDao.updateAssignment(aid, req.body);
-    res.sendStatus(204);
-  });
+  // app.post(
+  //   "/api/courses/:cid/assignments/AssignmentEditorNew",
+  //   async (req, res) => {
+  //     try {
+  //       const { cid } = req.params;
+  //       console.log("new assignment:", cid, req.body);
+
+  //       if (!req.body.title) {
+  //         return res
+  //           .status(400)
+  //           .json({ error: "Assignment title is required" });
+  //       }
+
+  //       const newAssignment = await assignmentsDao.createAssignment(
+  //         cid,
+  //         req.body
+  //       );
+
+  //       res.status(201).json(newAssignment); // 201 Created
+  //     } catch (error) {
+  //       console.error("Error creating assignment:", error);
+  //       res.status(500).json({ error: "Internal server error" });
+  //     }
+  //   }
+  // );
+
+  app.post(
+    "/api/courses/:cid/assignments/AssignmentEditorNew",
+    async (req, res) => {
+      console.log("AssignmentEditorNew: in routes", req.body);
+      try {
+        const { cid } = req.params;
+
+        const assignment = {
+          ...req.body,
+          course: new mongoose.Types.ObjectId(cid), // 确保 course 是 ObjectId
+        };
+
+        console.log("Assignment passed to DAO:", assignment);
+
+        const newAssignment = await assignmentsDao.createAssignment(assignment);
+        res.status(201).json(newAssignment);
+      } catch (error) {
+        console.error("Error creating assignment:", error);
+        res.status(500).json({ error: "Internal server error" });
+      }
+    }
+  );
 }
-
-// push again
-// export default function AssignmentRoutes(app) {
-//   // delete module
-//   app.delete("/api/assignments/:aid", (req, res) => {
-//     const { aid } = req.params;
-//     db.assignments = db.assignments.filter((a) => a._id !== aid);
-//     res.sendStatus(200);
-//   });
-
-//   // get all assignments
-//   app.get("/api/courses/:cid/assignments", (req, res) => {
-//     const { cid } = req.params;
-//     const assignments = db.assignments.filter((a) => a.course === cid);
-//     res.json(assignments);
-//   });
-
-//   // create new module
-//   app.post("/api/courses/:cid/assignments", (req, res) => {
-//     const { cid } = req.params;
-//     const newAssignment = {
-//       ...req.body,
-//       course: cid,
-//       _id: new Date().getTime().toString(),
-//     };
-//     db.assignments.push(newAssignment);
-//     res.send(newAssignment);
-//   });
-
-//   // update module
-//   app.put("/api/assignments/:aid", (req, res) => {
-//     const { aid } = req.params;
-//     const assignmentIndex = db.assignments.findIndex((a) => a._id === aid);
-//     db.assignments[assignmentIndex] = {
-//       ...db.assignments[assignmentIndex],
-//       ...req.body,
-//     };
-//     res.sendStatus(204);
-//   });
-// }
