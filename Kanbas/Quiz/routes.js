@@ -47,7 +47,7 @@ export default function QuizRoutes(app) {
   // fetch all quizzes
   app.get("/api/quizzes", async (req, res) => {
     console.log("~~~~~~~~~~~~~~~~~~~~GET QUIZZES IN ROUTES FILEEE WOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO~~~~~~~~~!@#@#!@#@!#!@#!@");
-    const quizzes = await dao.getAllQuizzes();  // ADD findAllQuizzes fucntion
+    const quizzes = await quizzesDao.getAllQuizzes();  // ADD findAllQuizzes fucntion
     res.send(quizzes);
   });
 }
