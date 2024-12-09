@@ -63,10 +63,9 @@ export default function AttemptRoutes(app) {
   });
 
   // fetch all quiz attempts from every user?
-  app.get("/api/quizzes", async (req, res) => {
-    console.log("~~~~~~~~~~~~~~~~~~~~GET QUIZZES IN ROUTES FILEEE WOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO~~~~~~~~~!@#@#!@#@!#!@#!@");
-    const quizzes = await attemptsDao.getAllQuizzesAttempts();  // ADD findAllQuizzes fucntion
-    res.send(quizzes);
+  app.get("/api/quizAttempts", async (req, res) => {
+    const quizAttempts = await attemptsDao.getAllQuizzesAttempts();  // ADD findAllQuizzes fucntion
+    res.send(quizAttempts);
   });
 
 }
