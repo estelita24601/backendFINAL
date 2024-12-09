@@ -1,5 +1,9 @@
 # API Documentation
 
+qid = quiz _id
+cid = course _id
+uid = user _id
+
 | dao.js                   |                                   | client.ts |        | description/usages |
 | ------------------------ | --------------------------------- | --------- | ------ | ------------------ |
 | `deleteQuiz`             | /api/quizzes/:qid                 |           | DELETE |                    |
