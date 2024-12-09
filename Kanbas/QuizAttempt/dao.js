@@ -1,26 +1,29 @@
-//TODO: import db from mongo
+import attemptModel from "./model.js";
 
-
-//TODO: get a specific user's attempt for a specific quiz
+//get a specific user's attempt for a specific quiz
 export function findAttempt(userID, quizID) {
-
+    return attemptModel.findOne({ userID: userID, quizID: quizID });
 }
 
-//TODO: first time taking the quiz
+// first time taking the quiz
 export function createNewAttempt(userID, quizAttempt) {
-    //quiz attempt might need to have quiz _id inside of it?
+    return attemptModel.create({ userID, ...quizAttempt })
 }
 
-//TODO: replace user's previous attempt with this new one
+//replace user's previous attempt with this new one
 export function replaceAttempt(userID, quizAttempt) {
-
+    return attemptModel.findOneAndUpdate(
+        { userID: userID, quizID: quizAttempt.quizID },
+        quizAttempt,
+        { new: true, upsert: true }
+      );
 }
 
 //NOTE: might not need these anymore?
 export function findAttemptsByQuiz(quizID) {
-    // get attempts from all users for the given quiz
+    return attemptModel.find({ quizID: quizID });
 }
 
 export function findAttemptsByUser(userID) {
-    // get all attempts user has made
+    return attemptModel.find({ userID: userID });
 }
