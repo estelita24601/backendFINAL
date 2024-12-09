@@ -41,4 +41,12 @@ export default function QuizRoutes(app) {
     console.log(`getQuizById ${qid}\nresult = ${JSON.stringify(quizzes, null, 2)}`);
     res.json(quizzes);
   });
+
+
+
+  // fetch all quizzes
+  app.get("/api/quizzes", async (req, res) => {
+    const quizzes = await dao.getAllQuizzes();  // ADD findAllQuizzes fucntion
+    res.send(quizzes);
+  });
 }

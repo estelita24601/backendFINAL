@@ -25,3 +25,10 @@ export function getQuizById(quiz_id) {
   console.log("getquizbyid - backend");
   return model.find({ _id: quiz_id });
 }
+
+
+export function getAllQuizzes(){
+  return model.find();
+}
+
+

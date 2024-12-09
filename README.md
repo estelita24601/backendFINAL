@@ -10,4 +10,4 @@
 | TODO: `createNewAttempt` | TODO: /api/quiz-attempt/:uid      |           | POST   |                    |
 | TODO: `findAttempt`      | TODO: /api/quiz-attempt/:uid/:qid |           | GET    |                    |
 | TODO: `replaceAttempt`   | TODO: /api/quiz-attempt/:uid      |           | PUT    |                    |
-|                          |                                   |           |        |                    |
+| `getAllQuizzes`          | /api/quizzes                      |           | GET    |                    |
