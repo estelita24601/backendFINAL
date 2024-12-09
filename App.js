@@ -1,3 +1,4 @@
+import mongoose from "mongoose";
 import express from "express";
 import session from "express-session";
 import Hello from "./Hello.js";
@@ -11,6 +12,22 @@ import "dotenv/config";
 import EnrollmentsRoutes from "./Kanbas/Enrollments/routes.js";
 import QuizRoutes from "./Kanbas/Quiz/routes.js";
 import QuizAttemptRoutes from "./Kanbas/QuizAttempt/routes.js";
+
+const CONNECTION_STRING =
+    process.env.MONGO_CONNECTION_STRING ||
+    "mongodb+srv://Cluster06842:supersecretpassword@kanbas.icn8v.mongodb.net/kanbas?retryWrites=true&w=majority&appName=Kanbas";
+
+mongoose
+    .connect(CONNECTION_STRING, {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+    })
+    .then(() => {
+      console.log("Connected to MongoDB successfully!");
+    })
+    .catch((err) => {
+      console.error("Error connecting to MongoDB:", err);
+    });
 
 const app = express();
 

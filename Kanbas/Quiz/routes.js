@@ -3,8 +3,12 @@ import * as quizzesDao from "./dao.js";
 export default function QuizRoutes(app) {
   app.delete("/api/quizzes/:qid", async (req, res) => {
     const { qid } = req.params;
-    await quizzesDao.deleteQuiz(qid);
-    res.sendStatus(200);
+    const resultStatus = await quizzesDao.deleteQuiz(qid);
+    if (resultStatus.acknowledged) {
+      res.status(204).send(`deleted ${resultStatus.deletedCount} quizzes`);
+    } else {
+      res.status(500).send(`unable to acknowledge request to delete quiz with _id = ${qid}`);
+    }
   });
 
   app.post("/api/courses/:cid/quizzes", async (req, res) => {
@@ -15,14 +19,18 @@ export default function QuizRoutes(app) {
 
   app.put("/api/quizzes/:qid", async (req, res) => {
     const { qid } = req.params;
-    await quizzesDao.updateQuiz(qid, req.body);
-    res.sendStatus(204);
+    const resultStatus = await quizzesDao.updateQuiz(qid, req.body);
+    if (resultStatus.acknowledged) {
+      res.status(204).send(`updated ${resultStatus.modifiedCount} quizzes`);
+    } else {
+      res.status(500).send(`unable to acknowledge request to update quiz with _id = ${qid}`);
+    }
   });
 
   app.get("/api/courses/:cid/quizzes", async (req, res) => {
     const { cid } = req.params;
     const quizzes = await quizzesDao.getQuizzesByCourse(cid);
-    console.log(quizzes);
+    console.log(`getQuizByCourse ${cid}\nresult = ${JSON.stringify(quizzes, null, 2)}`);
     res.json(quizzes);
   });
 
@@ -30,7 +38,7 @@ export default function QuizRoutes(app) {
   app.get("/api/quizzes/:qid", async (req, res) => {
     const { qid } = req.params;
     const quizzes = await quizzesDao.getQuizById(qid);
-    console.log(quizzes);
+    console.log(`getQuizById ${qid}\nresult = ${JSON.stringify(quizzes, null, 2)}`);
     res.json(quizzes);
   });
 }
