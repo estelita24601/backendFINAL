@@ -28,6 +28,7 @@ export function getQuizById(quiz_id) {
 
 
 export function getAllQuizzes(){
+  console.log("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~GETALLQUIZZES FUNCTION WOOOOOOOOOOOOOOO~~~~~~~~~~~~~~~~~~~~~~~~~~");
   return model.find();
 }
 
