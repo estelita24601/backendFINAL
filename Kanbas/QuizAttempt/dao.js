@@ -27,3 +27,8 @@ export function findAttemptsByQuiz(quizID) {
 export function findAttemptsByUser(userID) {
     return attemptModel.find({ userID: userID });
 }
+
+//finds all quizzes
+export function getAllQuizzesAttempts(){
+    return model.find();
+}

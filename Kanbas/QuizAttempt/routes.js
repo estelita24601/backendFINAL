@@ -61,4 +61,12 @@ export default function AttemptRoutes(app) {
       res.status(500).send(`Error retrieving attempts for user: ${error.message}`);
     }
   });
+
+  // fetch all quiz attempts from every user?
+  app.get("/api/quizzes", async (req, res) => {
+    console.log("~~~~~~~~~~~~~~~~~~~~GET QUIZZES IN ROUTES FILEEE WOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO~~~~~~~~~!@#@#!@#@!#!@#!@");
+    const quizzes = await attemptsDao.getAllQuizzesAttempts();  // ADD findAllQuizzes fucntion
+    res.send(quizzes);
+  });
+
 }
