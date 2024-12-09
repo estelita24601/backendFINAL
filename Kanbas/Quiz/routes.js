@@ -27,9 +27,10 @@ export default function QuizRoutes(app) {
     }
   });
 
-  app.get("/api/courses/:cid/quizzes", async (req, res) => {
+  app.get("/api/Courses/:cid/Quizzes", async (req, res) => {
     const { cid } = req.params;
     const quizzes = await quizzesDao.getQuizzesByCourse(cid);
+    console.log("QUIZZZESSSSS OBJ ID?!?!?!?!??!_--------------------------------------", quizzes);
     console.log(`getQuizByCourse ${cid}\nresult = ${JSON.stringify(quizzes, null, 2)}`);
     res.json(quizzes);
   });

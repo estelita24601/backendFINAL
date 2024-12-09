@@ -7,7 +7,7 @@ uid = user _id
 | dao.js                   |                                   | client.ts |        | description/usages |
 | ------------------------ | --------------------------------- | --------- | ------ | ------------------ |
 | `deleteQuiz`             | /api/quizzes/:qid                 |           | DELETE |                    |
-| `getQuizzesByCourse`     | /api/courses/:cid/quizzes         |           | GET    |                    |
+| `getQuizzesByCourse`     | /api/Courses/:cid/Quizzes         |           | GET    |                    |
 | `createQuiz`             | /api/courses/:cid/quizzes         |           | POST   |                    |
 | `updateQuiz`             | /api/quizzes/:qid                 |           | PUT    |                    |
 | `getQuizById`            | /api/quizzes/:qid                 |           | GET    |                    |
