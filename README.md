@@ -11,7 +11,9 @@ uid = user _id
 | `createQuiz`             | /api/courses/:cid/quizzes         |           | POST   |                    |
 | `updateQuiz`             | /api/quizzes/:qid                 |           | PUT    |                    |
 | `getQuizById`            | /api/quizzes/:qid                 |           | GET    |                    |
-| TODO: `createNewAttempt` | TODO: /api/quiz-attempt/:uid      |           | POST   |                    |
-| TODO: `findAttempt`      | TODO: /api/quiz-attempt/:uid/:qid |           | GET    |                    |
-| TODO: `replaceAttempt`   | TODO: /api/quiz-attempt/:uid      |           | PUT    |                    |
-| `getAllQuizzes`          | /api/quizzes                      |           | GET    |                    |
+|  `createNewAttempt` |   /api/users/:uid/quizzes/:qid/attempt   |           | POST   |                    |
+| `findAttempt`      |/api/users/:uid/quizzes/:qid/attempt |           | GET    |                    |
+| `replaceAttempt`   | /api/users/:uid/quizzes/:qid/attempt     |           | PUT    |                    |
+| `findAttemptsByQuiz`          | /api/quizzes/:qid/attempts                     |           | GET    |                    |
+| `findAttemptsByUser`          | /api/users/:uid/attempts                     |           | GET    |                    |
+| `getAllQuizzesAttempts`          | /api/quizAttempts                      |           | GET    |                    |
