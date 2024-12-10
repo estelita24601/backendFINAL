@@ -1,19 +1,31 @@
-# API Documentation
+# Quiz  API Documentation
 
-qid = quiz _id
-cid = course _id
-uid = user _id
+- `qid` = quiz _id
 
-| dao.js                   |                                   | client.ts |        | description/usages |
-| ------------------------ | --------------------------------- | --------- | ------ | ------------------ |
-| `deleteQuiz`             | /api/quizzes/:qid                 |           | DELETE |                    |
-| `getQuizzesByCourse`     | /api/Courses/:cid/Quizzes         |           | GET    |                    |
-| `createQuiz`             | /api/courses/:cid/quizzes         |           | POST   |                    |
-| `updateQuiz`             | /api/quizzes/:qid                 |           | PUT    |                    |
-| `getQuizById`            | /api/quizzes/:qid                 |           | GET    |                    |
-|  `createNewAttempt` |   /api/users/:uid/quizzes/:qid/attempt   |           | POST   |                    |
-| `findAttempt`      |/api/users/:uid/quizzes/:qid/attempt |           | GET    |                    |
-| `replaceAttempt`   | /api/users/:uid/quizzes/:qid/attempt     |           | PUT    |                    |
-| `findAttemptsByQuiz`          | /api/quizzes/:qid/attempts                     |           | GET    |                    |
-| `findAttemptsByUser`          | /api/users/:uid/attempts                     |           | GET    |                    |
-| `getAllQuizzesAttempts`          | /api/quizAttempts                      |           | GET    |                    |
+- `cid` = course _id
+
+- `uid` = user _id
+
+- `qqid` = quiz question _id
+
+
+
+| dao function name       | type   | route                                    | client | description/usages        |
+| ----------------------- | ------ | ---------------------------------------- | ------ | ------------------------- |
+| `deleteQuiz`            | DELETE | /api/quizzes/`:qid`                      |        |                           |
+| `getQuizzesByCourse`    | GET    | /api/Courses/`:cid`/Quizzes              |        |                           |
+| `createQuiz`            | POST   | /api/courses/`:cid`/quizzes              |        |                           |
+| `updateQuiz`            | PUT    | /api/quizzes/`:qid`                      |        |                           |
+| `getQuizById`           | GET    | /api/quizzes/`:qid`                      |        |                           |
+| `createNewAttempt`      | POST   | /api/users/`:uid`/quizzes/`:qid`/attempt |        |                           |
+| `findAttempt`           | GET    | /api/users/`:uid`/quizzes/`:qid`/attempt |        |                           |
+| `replaceAttempt`        | PUT    | /api/users/`:uid`/quizzes/`:qid`/attempt |        |                           |
+| `findAttemptsByQuiz`    | GET    | /api/quizzes/`:qid`/attempts             |        |                           |
+| `findAttemptsByUser`    | GET    | /api/users/`:uid`/attempts               |        |                           |
+| `getAllQuizzesAttempts` | GET    | /api/quizAttempts                        |        |                           |
+| `getAllQuestions`       | GET    | /api/quiz/questions                      |        | get all questions in db   |
+| `newQuestion`           | POST   | /api/quiz/questions                      |        | create a new question     |
+| `getQuizQuestions`      | GET    | /api/quiz/`:qid`/questions               |        | get questions for a quiz  |
+| `getQuestion`           | GET    | /api/quiz/questions/`:qqid`              |        | get a specific question   |
+| `updateQuestion`        | PUT    | /api/quiz/questions/`:qqid`              |        | edit an existing question |
+| `deleteQuestion`        | DELETE | /api/quiz/questions/`:qqid`              |        | delete a question         |

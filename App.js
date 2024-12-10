@@ -12,6 +12,7 @@ import "dotenv/config";
 import EnrollmentsRoutes from "./Kanbas/Enrollments/routes.js";
 import QuizRoutes from "./Kanbas/Quiz/routes.js";
 import QuizAttemptRoutes from "./Kanbas/QuizAttempt/routes.js";
+import QuizQuestionsRoutes from "./Kanbas/QuizQuestions/routes.js";
 
 const CONNECTION_STRING =
     process.env.MONGO_CONNECTION_STRING ||
@@ -62,6 +63,7 @@ UserRoutes(app);
 EnrollmentsRoutes(app);
 QuizRoutes(app);
 QuizAttemptRoutes(app);
+QuizQuestionsRoutes(app);
 
 const PORT = process.env.PORT || 4000;
 app.listen(PORT, () => {
