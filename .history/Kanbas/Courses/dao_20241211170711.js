@@ -19,7 +19,7 @@ export function findCoursesForEnrolledUser(userId) {
 
 export function findCourseById(courseId) {
   return model.findById(courseId);
-}
+}:
 
 export function createCourse(course) {
   delete course._id;

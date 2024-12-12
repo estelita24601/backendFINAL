@@ -17,10 +17,6 @@ export function findCoursesForEnrolledUser(userId) {
   return enrolledCourses;
 }
 
-export function findCourseById(courseId) {
-  return model.findById(courseId);
-}
-
 export function createCourse(course) {
   delete course._id;
   return model.create(course);

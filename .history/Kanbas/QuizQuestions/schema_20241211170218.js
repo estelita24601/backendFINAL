@@ -11,7 +11,7 @@ const quizQuestionSchema = new mongoose.Schema(
       type: mongoose.Schema.Types.ObjectId,
       ref: "CourseModel",
       required: true,
-    },
+    }, // Updated this line
     title: String,
     type: {
       type: String,
