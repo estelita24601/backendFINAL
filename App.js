@@ -14,6 +14,8 @@ import QuizRoutes from "./Kanbas/Quiz/routes.js";
 import QuizAttemptRoutes from "./Kanbas/QuizAttempt/routes.js";
 import QuizQuestionsRoutes from "./Kanbas/QuizQuestions/routes.js";
 
+
+//does render.com re deploy when I commit this?
 const CONNECTION_STRING =
     process.env.MONGO_CONNECTION_STRING ||
     "mongodb+srv://Cluster06842:supersecretpassword@kanbas.icn8v.mongodb.net/kanbas?retryWrites=true&w=majority&appName=Kanbas";
