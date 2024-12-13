@@ -31,3 +31,11 @@ export function findAttemptsByUser(userID) {
 export function getAllQuizzesAttempts() {
     return attemptModel.find();
 }
+
+async function replaceAttempt(uid, updatedAttempt) {
+    return QuizAttempts.findOneAndUpdate(
+      { userID: uid, quizID: updatedAttempt.quizID },
+      { $set: updatedAttempt },
+      { new: true } // Return the updated document
+    );
+  }
