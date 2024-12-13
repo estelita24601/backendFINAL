@@ -13,10 +13,10 @@ export function createNewAttempt(userID, quizAttempt) {
 //replace user's previous attempt with this new one
 export function replaceAttempt(userID, quizAttempt) {
     return attemptModel.findOneAndUpdate(
-        { userID: userID, quizID: quizAttempt.quizID },
-        quizAttempt,
-        { new: true, upsert: true }
-      );
+        { userID: userID, quizID: quizAttempt.quizID }, // Filter to find the correct document
+        { $set: quizAttempt }, // Use $set to avoid overwriting the entire document
+        { new: true, upsert: true } // Return the updated document and insert if not found
+    );
 }
 
 //NOTE: might not need these anymore?
