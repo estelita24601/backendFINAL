@@ -8,7 +8,7 @@ export default function AttemptRoutes(app) {
     try {
       const attempt = await attemptsDao.findAttempt(
         mongoose.Types.ObjectId(uid), // Cast uid to ObjectId
-        mongoose.Types.ObjectId(qid) // Cast qid to ObjectId
+        mongoose.Types.ObjectId(`${qid}`) // NO Cast qid to ObjectId test
       );
       if (attempt) {
         res.json(attempt);
