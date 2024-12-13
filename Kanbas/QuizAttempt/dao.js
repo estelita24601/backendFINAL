@@ -13,14 +13,17 @@ export function createNewAttempt(userID, quizAttempt) {
 //replace user's previous attempt with this new one
 export function replaceAttempt(userID, quizAttempt) {
     const { _id, ...updateFields } = quizAttempt; // Exclude _id from update fields
+    const filter = { userID: userID, quizID: quizAttempt.quizID }; // Define the filter explicitly
+    const update = { $set: updateFields }; // Prepare the update payload
 
-    console.log("Filter used in findOneAndUpdate ~~~~~~~~~~~~~~~~:", filter);
-    console.log("Update payload sent to MongoDB ~~~~~~~~~~~~~~~~~:", update);
+    // Debugging logs
+    console.log("Filter used in findOneAndUpdate:", filter);
+    console.log("Update payload sent to MongoDB:", update);
 
     return attemptModel.findOneAndUpdate(
-        { userID: userID, quizID: quizAttempt.quizID }, // Filter
-        { $set: updateFields }, // Use $set for safe updates
-        { new: true, upsert: true } // Return the updated document, insert if not found
+        filter, // Use the defined filter
+        update, // Use the update payload
+        { new: true, upsert: true } // Options
     );
 }
 
