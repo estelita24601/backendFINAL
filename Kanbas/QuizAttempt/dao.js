@@ -12,20 +12,25 @@ export function createNewAttempt(userID, quizAttempt) {
 
 //replace user's previous attempt with this new one
 export function replaceAttempt(userID, quizAttempt) {
-    const { _id, ...updateFields } = quizAttempt; // Exclude _id from update fields
-    const filter = { userID: userID, quizID: quizAttempt.quizID }; // Define the filter explicitly
-    const update = { $set: updateFields }; // Prepare the update payload
+    // Ensure quizID is included in the filter
+    const filter = { userID: userID, quizID: quizAttempt.quizID };
+
+    // Exclude _id from the update payload
+    const { _id, quizID, ...updateFields } = quizAttempt;
+
+    const update = { $set: updateFields };
 
     // Debugging logs
     console.log("Filter used in findOneAndUpdate:", filter);
     console.log("Update payload sent to MongoDB:", update);
 
     return attemptModel.findOneAndUpdate(
-        filter, // Use the defined filter
-        update, // Use the update payload
+        filter, // Correctly use the filter
+        update, // Safe update payload
         { new: true, upsert: true } // Options
     );
 }
+
 
 
 //NOTE: might not need these anymore?

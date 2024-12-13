@@ -18,30 +18,39 @@ export default function AttemptRoutes(app) {
 
   app.put("/api/users/:uid/quizzes/:qid/attempt", async (req, res) => {
     const { uid, qid } = req.params;
-    const quizAttempt = req.body;
+    const { score, answers, timestamp, courseID, attempt } = req.body;
+  
+    if (
+      typeof score !== "number" ||
+      (answers && !Array.isArray(answers)) || 
+      !timestamp || 
+      !courseID ||
+      typeof attempt !== "number"
+    ) {
+      return res.status(400).send("Invalid or missing fields in request body");
+    }
+  
+    const updatedAttempt = {
+      quizID: qid, // Ensure quizID is included
+      courseID,
+      score,
+      answers: answers || [],
+      timestamp: new Date(timestamp),
+      attempt,
+    };
   
     try {
-      const existingAttempt = await attemptsDao.findAttempt(uid, qid);
-  
-      if (existingAttempt) {
-        // Update the attempt
-        const updatedAttempt = await attemptsDao.replaceAttempt(uid, {
-          ...existingAttempt,
-          ...quizAttempt, // Merge new data
-          attempt: existingAttempt.attempt + 1, // Increment attempts
-        });
-  
-        return res.status(200).json(updatedAttempt);
+      const result = await attemptsDao.replaceAttempt(uid, updatedAttempt);
+      if (result) {
+        res.status(200).json(result);
+      } else {
+        res.status(404).send("Attempt not found");
       }
-  
-      // If no existing attempt, return a 404 (optional)
-      return res.status(404).send("Attempt not found.");
     } catch (error) {
       res.status(500).send(`Error updating attempt: ${error.message}`);
     }
   });
-  
-  
+    
   
   // Replace a users attempt for a specific quiz --- fosho for faculty use only... probably need to wrap in protected route? unles quiz offers multiple trys
   app.put("/api/users/:uid/quizzes/:qid/attempt", async (req, res) => {
