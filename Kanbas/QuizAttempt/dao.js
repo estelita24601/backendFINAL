@@ -12,12 +12,14 @@ export function createNewAttempt(userID, quizAttempt) {
 
 //replace user's previous attempt with this new one
 export function replaceAttempt(userID, quizAttempt) {
+    const { _id, ...updateFields } = quizAttempt; // Exclude _id from update fields
     return attemptModel.findOneAndUpdate(
-        { userID: userID, quizID: quizAttempt.quizID }, // Filter to find the correct document
-        { $set: quizAttempt }, // Use $set to avoid overwriting the entire document
-        { new: true, upsert: true } // Return the updated document and insert if not found
+        { userID: userID, quizID: quizAttempt.quizID }, // Filter
+        { $set: updateFields }, // Use $set for safe updates
+        { new: true, upsert: true } // Return the updated document, insert if not found
     );
 }
+
 
 //NOTE: might not need these anymore?
 export function findAttemptsByQuiz(quizID) {
