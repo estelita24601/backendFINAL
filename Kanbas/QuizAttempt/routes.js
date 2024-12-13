@@ -16,18 +16,39 @@ export default function AttemptRoutes(app) {
     }
   });
 
-  // Creates a new attempt for a user
   app.post("/api/users/:uid/quizzes/:qid/attempt", async (req, res) => {
     const { uid, qid } = req.params;
-    const quizAttempt = req.body;
+    const { score, answers, timestamp, courseID, attempt } = req.body;
+  
+    // Validate and normalize incoming payload
+    if (
+      typeof score !== "number" ||
+      (answers && !Array.isArray(answers)) || // Ensure answers is an array if provided
+      !timestamp || 
+      !courseID ||
+      typeof attempt !== "number"
+    ) {
+      return res.status(400).send("Invalid or missing fields in request body");
+    }
+  
+    const quizAttempt = {
+      quizID: qid,
+      courseID,
+      score,
+      answers: answers || [], // Default to empty array if not provided
+      timestamp: new Date(timestamp), // Ensure timestamp is a Date object
+      attempt,
+    };
+  
     try {
-      const newAttempt = await attemptsDao.createNewAttempt(uid, { quizID: qid, ...quizAttempt });
+      const newAttempt = await attemptsDao.createNewAttempt(uid, quizAttempt);
       res.status(201).json(newAttempt);
     } catch (error) {
       res.status(500).send(`Error creating new attempt: ${error.message}`);
     }
   });
-
+  
+  
   // Replace a users attempt for a specific quiz --- fosho for faculty use only... probably need to wrap in protected route? unles quiz offers multiple trys
   app.put("/api/users/:uid/quizzes/:qid/attempt", async (req, res) => {
     const { uid, qid } = req.params;
