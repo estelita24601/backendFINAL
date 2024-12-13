@@ -7,11 +7,11 @@ const quizQuestionSchema = new mongoose.Schema(
       ref: "QuizModel",
       required: true,
     },
-    course: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "CourseModel",
-      required: true,
-    },
+    // course: {
+    //   type: mongoose.Schema.Types.ObjectId,
+    //   ref: "CourseModel",
+    //   required: true,
+    // },
     title: String,
     type: {
       type: String,
@@ -19,7 +19,7 @@ const quizQuestionSchema = new mongoose.Schema(
       default: "multiple-choice",
     },
     points: { type: Number, default: 100 },
-    prompt: { type: String, required: true },
+    prompt: { type: String},
     choices: { value: mongoose.Schema.Types.Mixed }, //could be [String] or [Boolean]
     solution: { value: mongoose.Schema.Types.Mixed }, //String, [String] or Boolean
   },

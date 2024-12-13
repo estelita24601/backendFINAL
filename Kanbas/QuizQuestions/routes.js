@@ -37,11 +37,17 @@ export default function QuizQuestionsRoutes(app) {
   app.post("/api/quiz/:qid/questions", async (req, res) => {
     try {
       const { qid } = req.params;
+      logHelper("POST", `/api/quiz/${qid}/questions`);
+
       const question = {
         ...req.body,
         quiz: qid, // Associate question with quiz
       };
+      // console.log(`question = ${JSON.stringify(question, null, 2)}`);
+
       const newQuestion = await dao.createQuestion(question);
+      // console.log(`NEW question = ${JSON.stringify(newQuestion, null, 2)}`);
+
       res.json(newQuestion);
     } catch (error) {
       res.status(500).json({ error: "Failed to create question" });

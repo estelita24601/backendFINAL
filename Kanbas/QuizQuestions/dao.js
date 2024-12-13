@@ -20,9 +20,6 @@ export function getQuestion(questionId) {
 }
 
 export function createQuestion(question) {
-  if (question.quiz) {
-    question.quiz = new mongoose.Types.ObjectId(question.quiz);
-  }
   return model.create(question);
 }
 
