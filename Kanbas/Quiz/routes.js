@@ -3,7 +3,10 @@ import * as quizzesDao from "./dao.js";
 export default function QuizRoutes(app) {
   app.delete("/api/quizzes/:qid", async (req, res) => {
     const { qid } = req.params;
+    console.log(`DELETE /api/quizzes/${qid}`);
+
     const resultStatus = await quizzesDao.deleteQuiz(qid);
+    console.log(`delete status = ${JSON.stringify(resultStatus, null, 2)}`)
     if (resultStatus.acknowledged) {
       res.status(204).send(`deleted ${resultStatus.deletedCount} quizzes`);
     } else {
@@ -16,7 +19,7 @@ export default function QuizRoutes(app) {
     console.log(`Quiz Routes /api/courses/${cid}/quizzes`);
 
     const newQuiz = await quizzesDao.createQuiz(cid, req.body);
-    console.log(`sending... ${JSON.stringify(newQuiz, null, 2)}`);
+    // console.log(`sending... ${JSON.stringify(newQuiz, null, 2)}`);
 
     res.send(newQuiz);
   });

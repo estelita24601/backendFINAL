@@ -14,7 +14,7 @@ export function createQuiz(courseId, quiz) {
   console.log(`Quiz DAO - createQuiz()`);
   delete quiz._id;
   const newQuiz = { ...quiz, course: courseId };
-  console.log(`model.create - ${JSON.stringify(newQuiz, null, 2)}`)
+  // console.log(`model.create - ${JSON.stringify(newQuiz, null, 2)}`)
   return model.create(newQuiz);
 }
 
