@@ -10,11 +10,13 @@ export function getQuizzesByCourse(courseId) {
   return res;
 }
 
-export function createQuiz(quiz) {
+export function createQuiz(courseId, quiz) {
+  console.log(`Quiz DAO - createQuiz()`);
   delete quiz._id;
-  return model.create(quiz);
+  const newQuiz = { ...quiz, course: courseId };
+  console.log(`model.create - ${JSON.stringify(newQuiz, null, 2)}`)
+  return model.create(newQuiz);
 }
-
 
 export function updateQuiz(quizId, quizUpdates) {
   return model.updateOne({ _id: quizId }, quizUpdates);
@@ -27,7 +29,7 @@ export function getQuizById(quiz_id) {
 }
 
 
-export function getAllQuizzes(){
+export function getAllQuizzes() {
   console.log("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~GETALLQUIZZES FUNCTION WOOOOOOOOOOOOOOO~~~~~~~~~~~~~~~~~~~~~~~~~~");
   return model.find();
 }

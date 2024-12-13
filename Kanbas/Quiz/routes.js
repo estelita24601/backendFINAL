@@ -13,7 +13,11 @@ export default function QuizRoutes(app) {
 
   app.post("/api/courses/:cid/quizzes", async (req, res) => {
     const { cid } = req.params;
+    console.log(`Quiz Routes /api/courses/${cid}/quizzes`);
+
     const newQuiz = await quizzesDao.createQuiz(cid, req.body);
+    console.log(`sending... ${JSON.stringify(newQuiz, null, 2)}`);
+
     res.send(newQuiz);
   });
 
