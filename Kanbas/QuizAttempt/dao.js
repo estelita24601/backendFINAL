@@ -13,6 +13,10 @@ export function createNewAttempt(userID, quizAttempt) {
 //replace user's previous attempt with this new one
 export function replaceAttempt(userID, quizAttempt) {
     const { _id, ...updateFields } = quizAttempt; // Exclude _id from update fields
+
+    console.log("Filter used in findOneAndUpdate ~~~~~~~~~~~~~~~~:", filter);
+    console.log("Update payload sent to MongoDB ~~~~~~~~~~~~~~~~~:", update);
+
     return attemptModel.findOneAndUpdate(
         { userID: userID, quizID: quizAttempt.quizID }, // Filter
         { $set: updateFields }, // Use $set for safe updates
