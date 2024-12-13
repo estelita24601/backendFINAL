@@ -9,8 +9,7 @@ const schema = new mongoose.Schema({
   courseID: { type: mongoose.Schema.Types.ObjectId, ref: "Course", required: true }, 
   score: Number,
   timestamp: { type: Date, default: Date.now },
-
-  
+  attempt: { type: Number, required: true },
 },
 { collection: "quizAttempts" }
 );
